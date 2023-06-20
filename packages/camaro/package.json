@@ -1,0 +1,60 @@
+{
+  "name": "@ap0nia/camaro",
+  "version": "6.2.0",
+  "description": "Transforming XML to JSON using Node.js binding to native pugixml parser library",
+  "license": "MIT",
+  "homepage": "https://github.com/ap0nia/camaro",
+  "bugs": "https://github.com/ap0nia/camaro/issues",
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "install": "napa",
+    "build": "rimraf dist && tsup",
+    "prepublish": "npm run build"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "default": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ap0nia/camaro",
+    "directory": "packages/camaro"
+  },
+  "files": [],
+  "keywords": [
+    "xpath",
+    "json",
+    "transform",
+    "pugixml",
+    "xml",
+    "parser",
+    "n-api",
+    "xml2json",
+    "webassembly",
+    "wasm"
+  ],
+  "napa": {
+    "pugixml": "tuananh/pugixml#develop",
+    "json": "nlohmann/json#develop",
+    "fifo_map": "nlohmann/fifo_map#master"
+  },
+  "napa-config": {
+    "cache": false
+  },
+  "dependencies": {
+    "@ap0nia/piscina": "workspace:^",
+    "piscina": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.3.1",
+    "esbuild-plugin-wasm": "^1.1.0",
+    "napa": "^3.0.0",
+    "tsup": "^7.0.0"
+  }
+}

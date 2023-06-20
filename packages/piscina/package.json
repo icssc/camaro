@@ -1,0 +1,39 @@
+{
+  "name": "@ap0nia/piscina",
+  "version": "4.0.0",
+  "description": "A fast, efficient Node.js Worker Thread Pool implementation",
+  "license": "MIT",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/piscinajs/piscina/issues"
+  },
+  "homepage": "https://github.com/piscinajs/piscina#readme",
+  "keywords": [
+    "fast",
+    "worker threads",
+    "thread pool",
+    "wade wilson"
+  ],
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "build": "tsup"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "default": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^20.3.1",
+    "tsup": "^7.0.0"
+  },
+  "dependencies": {
+    "eventemitter-asyncresource": "^1.0.0",
+    "hdr-histogram-js": "^3.0.0",
+    "hdr-histogram-percentiles-obj": "^3.0.0"
+  }
+}
