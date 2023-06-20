@@ -55,6 +55,7 @@
     "@types/node": "^20.3.1",
     "esbuild-plugin-wasm": "^1.1.0",
     "napa": "^3.0.0",
+    "rimraf": "^5.0.1",
     "tsup": "^7.0.0"
   },
   "publishConfig": {
