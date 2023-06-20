@@ -4,13 +4,13 @@
  * @param template An XPath template object.
  * @returns The xml converted to json object based on the template.
  */
-declare function transform(xml: string, template: Object): Object;
+declare function transform(xml: string, template: Object): Promise<any>;
 /**
  * Convert an XML string to JSON object.
  * @param xml The xml string.
  * @returns A JSON object converted from the input XML string.
  */
-declare function toJson(xml: string): Object;
+declare function toJson(xml: string): Promise<void>;
 interface PrettyPrintOptions {
     /**
      * The size of the indent.

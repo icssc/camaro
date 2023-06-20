@@ -1,11 +1,3 @@
-import * as path from 'path';
-import { fileURLToPath as fUtP } from 'url';
-import { createRequire as topLevelCreateRequire } from 'module';
-const require = topLevelCreateRequire(import.meta.url);
-const __filename = fUtP(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-
 // src/js/camaro.js
 var camaro = (() => {
   var _scriptDir = import.meta.url;
@@ -1348,7 +1340,7 @@ var camaro_default = camaro;
 
 // src/js/index.ts
 var cachedInstance;
-function callWasmBinding(methodName, ...args) {
+async function callWasmBinding(methodName, ...args) {
   if (!cachedInstance)
     throw new Error("camaro is not initialized yet.");
   return cachedInstance[methodName](...args);
@@ -1367,22 +1359,22 @@ async function camaroWasm({ fn, args }) {
   await ready;
   return callWasmBinding(fn, ...args);
 }
-function transform(xml, template) {
+async function transform(xml, template) {
   if (!isNonEmptyString(xml)) {
     throw new TypeError("1st argument (xml) must be a non-empty string");
   }
   if (!template || typeof template !== "object" || isEmptyObject(template)) {
     throw new TypeError("2nd argument (template) must be an object");
   }
-  return camaroWasm({
+  return await camaroWasm({
     fn: "transform",
     args: [xml, JSON.stringify(template)]
   });
 }
-function toJson(xml) {
+async function toJson(xml) {
   throw new Error("Not yet implemented");
 }
-function prettyPrint(xml, opts = { indentSize: 2 }) {
+async function prettyPrint(xml, opts = { indentSize: 2 }) {
   if (!isNonEmptyString(xml)) {
     throw new TypeError("expecting xml input to be non-empty string");
   }
