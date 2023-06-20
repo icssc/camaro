@@ -1,13 +1,13 @@
 {
   "name": "@ap0nia/camaro",
-  "version": "6.2.1",
+  "version": "6.2.2",
   "description": "Transforming XML to JSON using Node.js binding to native pugixml parser library",
   "license": "MIT",
   "homepage": "https://github.com/ap0nia/camaro",
   "bugs": "https://github.com/ap0nia/camaro/issues",
   "type": "module",
-  "main": "src/index.ts",
-  "types": "src/index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "install:napa": "napa",
     "build": "rimraf dist && tsup",
