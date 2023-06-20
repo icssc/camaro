@@ -43,7 +43,7 @@ $(TARGET) : $(EXTERNAL_NODE_MODULES) $(PUGIXML_OBJ)
 		$(CAMARO_SRC)
 
 $(EXTERNAL_NODE_MODULES) : $(NODE_MODULES)
-	$(NPM) run install
+	$(NPM) run install:napa
 
 $(NODE_MODULES) :
 	$(NPM) install
