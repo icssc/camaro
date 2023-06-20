@@ -1,6 +1,6 @@
 {
   "name": "@ap0nia/camaro",
-  "version": "6.2.2",
+  "version": "6.2.3",
   "description": "Transforming XML to JSON using Node.js binding to native pugixml parser library",
   "license": "MIT",
   "homepage": "https://github.com/ap0nia/camaro",
@@ -11,6 +11,7 @@
   "scripts": {
     "install:napa": "napa",
     "build": "rimraf dist && tsup",
+    "test": "vitest",
     "prepublish": "npm run build"
   },
   "exports": {
@@ -51,15 +52,15 @@
     "cache": false
   },
   "dependencies": {
-    "@ap0nia/piscina": "workspace:^",
-    "piscina": "^4.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.3.1",
+    "@vitest/coverage-istanbul": "^0.32.2",
     "esbuild-plugin-wasm": "^1.1.0",
     "napa": "^3.0.0",
     "rimraf": "^5.0.1",
-    "tsup": "^7.0.0"
+    "tsup": "^7.0.0",
+    "vitest": "^0.32.2"
   },
   "publishConfig": {
     "access": "public"

@@ -1,29 +1,26 @@
-import { resolve } from 'path'
-import WorkerPool from '@ap0nia/piscina'
-import yeet from './worker.js'
+import Module from './camaro.js'
 
-let pool = createPool()
+let cachedInstance: Awaited<ReturnType<typeof Module>>
 
-function createPool() {
-  const NODE_MAJOR_VERSION = parseInt(process.versions.node.split('.')[0])
+async function callWasmBinding(methodName: keyof typeof cachedInstance, ...args: any[]) {
+  if (!cachedInstance) throw new Error('camaro is not initialized yet.')
+  return cachedInstance[methodName](...args)
+}
 
-  if (NODE_MAJOR_VERSION >= 12) {
-    const pool = new WorkerPool({ 
-      fn: yeet,
-      filename: resolve('worker.js') 
+const ready = new Promise<void>((resolve, _reject) => {
+  if (!cachedInstance) {
+    Module().then((instance) => {
+      cachedInstance = instance
+      resolve()
     })
-    return pool
+  } else {
+    resolve()
   }
+})
 
-  console.warn('[camaro] worker_threads is not available, expect performance drop. Try using Node version >= 12.')
-
-  const workerFn = require('./worker')
-
-  const pool = {
-    run: async (...args: unknown[]) => workerFn(...args)
-  }
-
-  return pool
+async function camaroWasm({ fn, args }: any) {
+  await ready
+  return callWasmBinding(fn, ...args)
 }
 
 /**
@@ -32,7 +29,7 @@ function createPool() {
  * @param template An XPath template object.
  * @returns The xml converted to json object based on the template.
  */
-export function transform(xml: string, template: Object): Object {
+export async function transform(xml: string, template: Object) {
   if (!isNonEmptyString(xml)) {
     throw new TypeError('1st argument (xml) must be a non-empty string')
   }
@@ -41,7 +38,7 @@ export function transform(xml: string, template: Object): Object {
     throw new TypeError('2nd argument (template) must be an object')
   }
 
-  return pool.run({
+  return await camaroWasm({
     fn: 'transform',
     args: [xml, JSON.stringify(template)],
   })
@@ -52,7 +49,7 @@ export function transform(xml: string, template: Object): Object {
  * @param xml The xml string.
  * @returns A JSON object converted from the input XML string.
  */
-export function toJson(xml: string): Object {
+export async function toJson(xml: string) {
   throw new Error('Not yet implemented')
   // if (!isNonEmptyString(xml)) {
   //   throw new TypeError('expecting xml input to be non-empty string')
@@ -74,11 +71,14 @@ export interface PrettyPrintOptions {
  * @param opts Options.
  * @returns Pretty-printed XML string.
  */
-export function prettyPrint(xml: string, opts: PrettyPrintOptions = { indentSize: 2 }) {
+export async function prettyPrint(
+  xml: string,
+  opts: PrettyPrintOptions = { indentSize: 2 }
+) {
   if (!isNonEmptyString(xml)) {
     throw new TypeError('expecting xml input to be non-empty string')
   }
-  return pool.run({ fn: 'prettyPrint', args: [xml, opts] })
+  return camaroWasm({ fn: 'prettyPrint', args: [xml, opts] })
 }
 
 function isNonEmptyString(str: unknown) {
