@@ -52,6 +52,9 @@ importers:
       '@types/node':
         specifier: ^20.3.1
         version: 20.3.1
+      rimraf:
+        specifier: ^5.0.1
+        version: 5.0.1
       tsup:
         specifier: ^7.0.0
         version: 7.0.0(typescript@5.1.3)
