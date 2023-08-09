@@ -1,6 +1,6 @@
 {
   "name": "@ap0nia/camaro",
-  "version": "6.2.4",
+  "version": "6.2.5",
   "description": "Transforming XML to JSON using Node.js binding to native pugixml parser library",
   "license": "MIT",
   "homepage": "https://github.com/ap0nia/camaro",
